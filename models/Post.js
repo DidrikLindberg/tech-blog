@@ -30,7 +30,7 @@ Post.init(
         user_id: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'users',
+                model: 'User',
                 key: 'id',
                 },
             },
@@ -44,4 +44,6 @@ Post.init(
         modelName: 'Post',
     }
 );
+
+module.exports = Post;
 

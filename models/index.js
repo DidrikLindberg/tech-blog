@@ -1,20 +1,20 @@
 // import models
-const Posts = require('./posts');
-const users = require('./users');
+const Post = require('./Post');
+const User = require('./User');
 const follows = require('./follows');
 
 
-Posts.belongsTo(users, {
+Post.belongsTo(users, {
     foreignKey: 'user_id',
     onDelete: 'CASCADE',
 });
 
-users.hasMany(Posts, {
+User.hasMany(Post, {
     foreignKey: 'user_id',
     onDelete: 'CASCADE',
 });
 
-users.belongsToMany(users, {
+User.belongsToMany(User, {
     through: follows,
     as: 'follower',
     foreignKey: 'follower_id',
@@ -23,7 +23,7 @@ users.belongsToMany(users, {
 
 
 module.exports = {
-    Posts,
-    users,
+    Post,
+    User,
     follows,
 };

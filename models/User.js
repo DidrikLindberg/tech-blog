@@ -3,12 +3,12 @@ const { Model, DataTypes } = require('sequelize');
 // import our database connection from config.js
 const sequelize = require('../config/connection');
 
-// Initialize Posts model (table) by extending off Sequelize's Model class
-class Posts extends Model {}
+// Initialize User model (table) by extending off Sequelize's Model class
+class User extends Model {}
 
 
-//set up fields and fules for posts model
-Posts.init(
+//set up fields and fules for User model
+User.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -16,32 +16,28 @@ Posts.init(
             primaryKey: true,
             autoIncrement: true,
             },
-        
-        title: {
+
+        username: {
+            type: varchar(50),
+            allowNull: false,
+            },
+
+        email: {
+            type: varchar(50),
+            allowNull: false,
+            },
+
+        password: {
             type: varchar(50),
             allowNull: false,
             },
         
-        body: {
-            type: varchar(500),
-            allowNull: false,
-            },
-
-        user_id: {
-            type: DataTypes.INTEGER,
-            references: {
-                model: 'users',
-                key: 'id',
-                },
-            },
-
     },
 
     {
         sequelize,
         freezeTableName: true,
         underscored: true,
-        modelName: 'posts',
+        modelName: 'User',
     }
 );
-

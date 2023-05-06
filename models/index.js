@@ -1,10 +1,10 @@
 // import models
 const Post = require('./Post');
-const User = require('./User');
+const User = require('./user');
 const follows = require('./follows');
 
 
-Post.belongsTo(users, {
+Post.belongsTo(User, {
     foreignKey: 'user_id',
     onDelete: 'CASCADE',
 });

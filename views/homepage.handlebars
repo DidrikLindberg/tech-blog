@@ -1,0 +1,36 @@
+    <div class="container">
+      <h1>Welcome to Tech Blog!</h1>
+      {{#if posts}}
+        <div class="row">
+          {{#each posts}}
+            <div class="col-md-6">
+              <div class="card mb-4">
+                <div class="card-body">
+                  <h2>{{title}}</h2>
+                  <p class="card-text">{{content}}</p>
+                  <a href="/post/{{id}}" class="btn btn-primary">Read More &rarr;</a>
+                </div>
+                <div class="card-footer text-muted">
+                  Posted on {{createdAt}}
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      {{else}}
+        <p>No posts yet!</p>
+      {{/if}}
+      <nav class="blog-nav">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="/">Home</a></li>
+          {{#if loggedIn}}
+            <li class="page-item"><a class="page-link" href="/dashboard">Dashboard</a></li>
+            <li class="page-item"><a class="page-link" href="/logout">Logout</a></li>
+          {{else}}
+            <li class="page-item"><a class="page-link" href="/login">Login</a></li>
+          {{/if}}
+        </ul>
+      </nav>
+    </div>
+  {{/content}}
+{{/extend}}

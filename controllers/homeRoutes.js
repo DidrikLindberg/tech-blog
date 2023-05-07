@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User } = require('../models');
+const { User, Post } = require('../models');
 const withAuth = require('../utils/auth');
 
 // Prevent non logged in User from viewing the homepage
@@ -8,7 +8,7 @@ router.get('/', withAuth, async (req, res) => {
     try {
         const userData = await User.findAll({
             attributes: { exclude: ['password'] },
-            order: [['name', 'ASC']],
+            order: [['username', 'ASC']],
         });
 
         const users = userData.map((project) => project.get({ plain: true }));
@@ -37,3 +37,21 @@ router.get('/login', (req, res) => {
   
   module.exports = router;
   
+
+  // display all blogposts on homepage
+    // display all comments on homepage
+
+    router.get('/', async (req, res) => {
+        try {
+            const dbBlogData = await Blog.findAll({
+                include: [
+                    {
+                        model: Post,
+                        attributes: ['title', 'body'],
+                    },
+                ],
+            });
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    });

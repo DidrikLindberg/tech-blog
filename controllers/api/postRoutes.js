@@ -1,18 +1,31 @@
 const router = require('express').Router();
-const { Post } = require('../../models');
+const { Post, User } = require('../../models');
 
-router.post('/', async (req, res) => {
+
+// get all posts
+router.get('/', async (req, res) => {
     try {
-      const newPost = await Post.create({
-        ...req.body,
-        user_id: req.session.user_id,
+      const postData = await Post.findAll({
+        include: [{ model: User }],
       });
-  
-      res.status(200).json(newPost);
+      res.status(200).json(postData);
     } catch (err) {
       res.status(400).json(err);
     }
   });
+
+  //create new post
+  router.post('/', async (req, res) => {
+    // create a new category
+    try {
+      const postData = await Post.create(req.body);
+      res.status(200).json(postData);
+    }
+    catch (err) {
+      res.status(400).json(err);
+    }
+  });
+  
   
 
   router.delete('/:id', async (req, res) => {

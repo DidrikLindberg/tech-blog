@@ -1,3 +1,4 @@
+
     <div class="container">
       <h1>Welcome to Tech Blog!</h1>
       {{#if posts}}
@@ -8,7 +9,7 @@
                 <div class="card-body">
                   <h2>{{title}}</h2>
                   <p class="card-text">{{content}}</p>
-                  <a href="/post/{{id}}" class="btn btn-primary">Read More &rarr;</a>
+                  <a href="/posts/{{id}}" class="btn btn-primary">Read More &rarr;</a>
                 </div>
                 <div class="card-footer text-muted">
                   Posted on {{createdAt}}
@@ -23,14 +24,7 @@
       <nav class="blog-nav">
         <ul class="pagination">
           <li class="page-item"><a class="page-link" href="/">Home</a></li>
-          {{#if loggedIn}}
-            <li class="page-item"><a class="page-link" href="/dashboard">Dashboard</a></li>
-            <li class="page-item"><a class="page-link" href="/logout">Logout</a></li>
-          {{else}}
-            <li class="page-item"><a class="page-link" href="/login">Login</a></li>
-          {{/if}}
+
         </ul>
       </nav>
     </div>
-  {{/content}}
-{{/extend}}

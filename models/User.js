@@ -36,7 +36,7 @@ User.init(
             },
 
         password: {
-            type: varchar(50),
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 len: [8],

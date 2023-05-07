@@ -18,12 +18,12 @@ Post.init(
             },
         
         title: {
-            type: varchar(50),
+            type: DataTypes.STRING,
             allowNull: false,
             },
         
         body: {
-            type: varchar(500),
+            type: DataTypes.STRING,
             allowNull: false,
             },
 

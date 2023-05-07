@@ -27,6 +27,21 @@ const sess = {
   })
 };
 
+app.use(session(sess));
+
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(routes);
+
+
 // turn on connection to db and server
 // force: false means that we do not want to drop and re-create all of the database tables on startup
 sequelize.sync({ force: false }).then(() => {

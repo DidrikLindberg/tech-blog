@@ -11,11 +11,17 @@ router.get('/', withAuth, async (req, res) => {
             order: [['username', 'ASC']],
         });
 
-        const users = userData.map((project) => project.get({ plain: true }));
+        const users = userData.map((user) => user.get({ plain: true }));
+
+        const postData = await Post.findAll({
+            include: [{ model: User, attributes: ['username'] }],
+            order: [['created_at', 'DESC']],
+        });
+        const posts = postData.map((post) => post.get({ plain: true }));
 
         res.render('homepage', {
             users,
-      // Pass the logged in flag to the template
+            posts,
             logged_in: req.session.logged_in,
         });
     } catch (err) {
@@ -41,17 +47,18 @@ router.get('/login', (req, res) => {
   // display all blogposts on homepage
     // display all comments on homepage
 
-    router.get('/', async (req, res) => {
-        try {
-            const dbBlogData = await Blog.findAll({
-                include: [
-                    {
-                        model: Post,
-                        attributes: ['title', 'body'],
-                    },
-                ],
-            });
-        } catch (err) {
-            res.status(500).json(err);
-        }
-    });
+    // router.get('/', async (req, res) => {
+    //     try {
+    //         const dbBlogData = await Blog.findAll({
+    //             include: [
+    //                 {
+    //                     model: Post,
+    //                     attributes: ['title', 'body'],
+    //                 },
+    //             ],
+    //         });
+
+    //     } catch (err) {
+    //         res.status(500).json(err);
+    //     }
+    // });

@@ -54,6 +54,30 @@ router.get('/login', (req, res) => {
     });
 
 
+  //get post by id 
+  router.get('/posts/:id', async (req, res) => {
+    try {
+      const postData = await Post.findByPk(req.params.id, {
+        include: [
+          {
+            model: User,
+            attributes: [
+              'username',
+            ],
+          },
+        ],
+      });
+  
+      const post = postData.get({ plain: true });
+      // Send over the 'loggedIn' session variable to the 'post' template
+      res.render('post', { post, logged_in: req.session.logged_in });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  });
+
+
   module.exports = router;
   
 

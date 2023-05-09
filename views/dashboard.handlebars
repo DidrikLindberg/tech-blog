@@ -1,34 +1,34 @@
 <div class="container my-5">
-
-    <div class="row">
-      <div class="col-md-8">
-        <h2>Create a new post</h2>
-        <form action="/api/posts" method="POST">
-          <div class="mb-3">
-            <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="title" name="title" required>
+  <div class="row">
+    <div class="col-md-8">
+      <h2>Create a new post</h2>
+      <form class="new-post">
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="mb-3">
+          <label for="body" class="form-label">Body</label>
+          <textarea class="form-control" id="body" name="body" rows="5" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="image" class="form-label">Image</label>
+          <div class="input-group">
+            <input type="text" class="form-control" id="image" name="image" placeholder="Enter a keyword to generate an image" aria-label="Image" aria-describedby="image-btn">
+            <button class="btn btn-outline-secondary" type="button" id="image-btn">Generate</button>
           </div>
-          <div class="mb-3">
-            <label for="body" class="form-label">Body</label>
-            <textarea class="form-control" id="body" name="body" rows="5" required></textarea>
+          <div class="mt-2">
+            <img src="" id="image-preview" style="max-width: 100%;">
           </div>
-          <div class="mb-3">
-            <label for="image" class="form-label">Image</label>
-            <div class="input-group">
-              <input type="text" class="form-control" id="image" name="image" placeholder="Enter a keyword to generate an image" aria-label="Image" aria-describedby="image-btn">
-              <button class="btn btn-outline-secondary" type="button" id="image-btn">Generate</button>
-            </div>
-            <div class="mt-2">
-              <img src="" id="image-preview" style="max-width: 100%;">
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary">Create post</button>
-        </form>
-      </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Create post</button>
+      </form>
     </div>
-  
-
- 
+    <div class="col-md-4">
+      <h2>My Posts</h2>
+      <ul id="post-list"></ul>
+    </div>
+  </div>
 </div>
 
-<script src="/public/js/dashboard.js"></script>
+<script src="/js/dashboard.js"></script>

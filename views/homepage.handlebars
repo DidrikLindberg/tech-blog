@@ -1,36 +1,54 @@
-
-<!-- homepage.handlebars -->
-  <div class="container">
-    <h1 class="mb-5">Welcome to Tech Blog!</h1>
-      {{#if posts}}
-        <div class="row">
-           {{#each posts}}
-            <div class="col-md-12 mb-4">
-              <div class="card">
-                  <div class="row no-gutters">
-                      <div class="col-md-4">
-                        <img src="{{imageUrl}}" class="card-img" alt="{{title}}">
-  </div>
-  <div class="col-md-8">  
-  <div class="card-body">
-  <h2 class="card-title">{{title}}</h2>
-  <p class="card-text">{{body}}</p>
-  <a href="/posts/{{id}}" class="btn btn-primary">Read More</a>
-  </div>
-  <div class="card-footer text-muted">
-  <button class="btn btn-link">Comment</button>
-  Posted on {{createdAt}}
-  </div>
-  </div>
-  </div>
-  </div>
-  </div>
-  {{/each}}
+<div class="container">
+  <h1 class="mb-5">Welcome to Tech Blog!</h1>
+  {{#if posts}}
+  <div class="row">
+    {{#each posts}}
+    <div class="col-md-12 mb-4">
+      <div class="card">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <img src="{{imageUrl}}" class="card-img" alt="{{title}}">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h2 class="card-title">{{title}}</h2>
+              <p class="card-text">{{body}}</p>
+              <a href="/posts/{{id}}" class="btn btn-primary">Read More</a>
+            </div>
+            <div class="card-footer text-muted">
+              <button class="btn btn-link" onclick="toggleCommentForm({{id}})">Comment</button>
+              {{!-- Posted on {{createdAt}} --}}
+            </div>
+            <div class="card-body" id="comment-form-{{id}}" style="display: none">
+              <form method="POST" action="api/comments">
+                <div class="form-group">
+                  <label for="comment">Add a comment:</label>
+                  <input type="text" class="form-control" id="comment" name="comment">
+                  <input type="hidden" name="post_id" value="{{id}}">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+            <div class="card-body">
+              {{#each comments}}
+              <div class="media">
+                <img src="{{this.User.imageUrl}}" class="mr-3 rounded-circle" alt="{{this.User.username}}">
+                <div class="media-body">
+                  <h5 class="mt-0">{{this.User.username}}</h5>
+                  {{this.comment}}
+                </div>
+              </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
   </div>
   {{else}}
   <p>No posts yet!</p>
   {{/if}}
-
   <nav aria-label="Page navigation">
     <ul class="pagination justify-content-center">
       <li class="page-item disabled">
@@ -47,3 +65,10 @@
     </ul>
   </nav>
 </div>
+
+<script>
+  function toggleCommentForm(post_id) {
+    const form = document.getElementById(`comment-form-${post_id}`);
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+  }
+</script>

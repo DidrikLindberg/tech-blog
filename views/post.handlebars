@@ -9,18 +9,21 @@
   </div>
   <hr class="post-divider">
   <div class="post-comments">
+    <h2 class="post-title">{{comment}}</h2>
     <h3>Comments</h3>
-    {{!-- {{#if post.comments}} --}}
-      {{#each post.comments}}
-        <div class="comment">
-          <h4 class="comment-author">{{this.user.username}}</h4>
-          <p class="comment-text">{{this.comment}}</p>
-          <p class="comment-date">{{formatDate this.createdAt "MMM DD, YYYY h:mm A"}}</p>
-        </div>
-      {{/each}}
-    {{!-- {{else}} --}}
+    {{#if comments.length}}
+         {{#each comments}}
+              <div class="media">
+                <img src="{{this.User.imageUrl}}" class="mr-3 rounded-circle" alt="{{this.User.username}}">
+                <div class="media-body">
+                  <h5 class="mt-0">{{this.User.username}}</h5>
+                  {{this.comment}}
+                </div>
+              </div>
+              {{/each}}
+    {{else}}
       <p class="no-comments">No comments yet</p>
-    {{!-- {{/if}} --}}
+    {{/if}}
   </div>
   {{#if logged_in}}
     <div class="comment-form">

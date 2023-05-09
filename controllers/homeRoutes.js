@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Post } = require('../models');
+const { User, Post, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
 
@@ -16,7 +16,15 @@ router.get('/', withAuth, async (req, res) => {
         const users = userData.map((user) => user.get({ plain: true }));
 
         const postData = await Post.findAll({
-            include: [{ model: User, attributes: ['username'] }],
+            include: [
+                {
+                    model: Comment,
+                },
+            {
+                    model: User, 
+                    attributes: ['username'] 
+                }
+            ],
             order: [['created_at', 'DESC']],
         });
         const posts = postData.map((post) => post.get({ plain: true }));
@@ -59,14 +67,21 @@ router.get('/login', (req, res) => {
     try {
       const postData = await Post.findByPk(req.params.id, {
         include: [
-          {
-            model: User,
-            attributes: [
-              'username',
-            ],
-          },
-        ],
-      });
+            {
+                model: Comment,
+                include: [
+                    {
+                      model: User,
+                      attributes: ['username']
+                    }
+                  ]
+                },
+                {
+                  model: User,
+                  attributes: ['username']
+                }
+              ]
+            });
   
       const post = postData.get({ plain: true });
       // Send over the 'loggedIn' session variable to the 'post' template

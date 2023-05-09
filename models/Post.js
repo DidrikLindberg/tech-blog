@@ -2,6 +2,7 @@
 const { Model, DataTypes } = require('sequelize');
 // import our database connection from config.js
 const sequelize = require('../config/connection');
+const { text } = require('express');
 
 // Initialize Post model (table) by extending off Sequelize's Model class
 class Post extends Model {}
@@ -23,7 +24,7 @@ Post.init(
             },
         
         body: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
             },
 

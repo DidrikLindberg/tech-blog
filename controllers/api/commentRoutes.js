@@ -16,25 +16,22 @@ const withAuth = require('../../utils/auth')
 //     }
 // }
 // })
-
-router.post('/', async (req, res) => {
-    try {
-      const { comment } = req.body;
-      const user_id = req.session.user_id; // assuming user_id is stored in session
-      const post_id = req.body.post_id;
+router.post('/', withAuth, async (req,res) => {
+    if(req.session.logged_in){
+    try{
       
-      const commentData = await Comment.create({
-        comment,
-        post_id,
-        user_id
-      });
-  
-      res.status(200).json(commentData);
+        const commentData = await Comment.create({
+           comment: req.body.comment, 
+           user_id : req.session.user_id, 
+           post_id: req.body.post_id})
+           
+        // res.status(200).json(commentData)
+        res.redirect('/'); // Redirect to home page
+    }catch(err){
+        res.status(400).json(err)
     }
-    catch (err) {
-      res.status(400).json(err);
-    }
-  });
+}
+})
 
 
   // get all comments

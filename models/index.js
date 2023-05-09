@@ -1,6 +1,6 @@
 // import models
 const Post = require('./Post');
-const User = require('./user');
+const User = require('./User');
 const Comment = require('./comment');
 // const follows = require('./follows');
 
